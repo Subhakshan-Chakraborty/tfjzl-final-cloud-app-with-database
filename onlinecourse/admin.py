@@ -9,44 +9,30 @@ from .models import (
     Choice,
     Submission
 )
-
-
 # Inline for Lesson inside Course
 class LessonInline(admin.StackedInline):
     model = Lesson
     extra = 5
-
-
 # Inline for Question inside Course
 class QuestionInline(admin.TabularInline):
     model = Question
     extra = 1
-
-
 # Inline for Choice inside Question
 class ChoiceInline(admin.TabularInline):
     model = Choice
     extra = 2
-
-
 # Course Admin
 class CourseAdmin(admin.ModelAdmin):
     inlines = [LessonInline, QuestionInline]
     list_display = ('name', 'pub_date')
     list_filter = ['pub_date']
     search_fields = ['name', 'description']
-
-
 # Question Admin
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [ChoiceInline]
-
-
 # Lesson Admin
 class LessonAdmin(admin.ModelAdmin):
     list_display = ['title']
-
-
 # Register models
 admin.site.register(Course, CourseAdmin)
 admin.site.register(Lesson, LessonAdmin)
